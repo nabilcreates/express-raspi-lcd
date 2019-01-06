@@ -15,27 +15,41 @@ let history = [];
 // FUNCTION TO DISPLAY TEXT
 function displayText(d){
 
-	// IF THE DISPLAY TEXT IS MORE THAN 16 CHARS
-	if(d.length > 16){
+	// IF THE DISPLAY TEXT IS MORE THAN 32 CHARS
+	if(d.length > 32){
 
 		// CLEAR LCD
                 lcd.clear()
 
-		// PRINT LINE CONTAINING DISPLAY TEXT
+		lcd.println('More than 32', 1)
+		lcd.println('chars', 2)
+
+		return {
+			above_16chars: true,
+			error: true,
+			errorMsg: 'More than 32 chars',
+		}
+
+        }else if(d.length > 16){
+
+		// CLEAR LCD
+                lcd.clear()
+
+                // PRINT LINE CONTAINING DISPLAY TEXT
                 lcd.println(d,1)
 
-		// PRINT SECOND LINE CONTAINING DISPLAY TEXT (AFTER 16 CHARS)
+                // PRINT SECOND LINE CONTAINING DISPLAY TEXT (AFTER 16 CHARS)
                 lcd.println(d.slice(16),2)
 
                 //PUSH TO HISTORY ARRAY
                 history.push(d) 
 
-		// RETURN (FOR RESPONSE SEND)
+                // RETURN (FOR RESPONSE SEND)
                 return {
                         above_16chars: true,
                         d: d,
                 }
-        }else{
+	}else{
 
 		// CLEAR LCD
                 lcd.clear()
